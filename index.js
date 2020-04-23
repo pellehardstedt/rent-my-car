@@ -2,23 +2,28 @@ const keys = require('./config/keys');
 
 const express = require('express');
 const mongoose = require('mongoose');
+const Rest = require('./rest.class.js');
+
+Rest.start({
+  mongoURI: keys.mongoURI,
+  baseUrl: "/api"
+})
 
 require('./models/user')
-mongoose.connect(keys.mongoURI, {useNewUrlParser: true, useUnifiedTopology: true})
+
+//mongoose.connect(keys.mongoURI, {useNewUrlParser: true, useUnifiedTopology: true})
 
 const User = mongoose.model('users')
 
 const app = express();
 const port = 3000
 
-app.get('/', (req ,res) => res.send("hellow world"));
+app.use(Rest.start({
+  mongoURI: keys.mongoURI,
+  baseUrl: "/api"
+}));
 
-app.get('/api/users', async (req,res) => {
-  const pelle = await User.findOne({name:"pelle"})
-  console.log(pelle)
-  res.send(pelle)
-});
-
+app.get('/', (req ,res) => res.send("hello world"));
 
 app.listen(port, function(){
   console.log("listening on port 3000")
