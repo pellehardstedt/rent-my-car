@@ -10,6 +10,7 @@ Rest.start({
 })
 
 require('./models/user')
+require('./models/car')
 
 //mongoose.connect(keys.mongoURI, {useNewUrlParser: true, useUnifiedTopology: true})
 
