@@ -43,16 +43,17 @@ module.exports = class RestMongo {
       return;
     }
     // remove baseUrl and split rest of url on slash
-    let urlParts = url.split(baseUrl,2)[1].split('/');
+    let urlParts = url.split(baseUrl,2)[1].split('/')
+    console.log(urlParts)
 
     //save model name in a string
-    this.modelName = urlParts[0];
+    this.modelName = urlParts[1];
 
     //save model instance. somewhere else?
-    this.model = mongoose.model(urlParts[0].split(';').join(''));
+    this.model = mongoose.model(urlParts[1].split(';').join(''));
 
     // set properties to this
-    this.id = urlParts[1]
+    this.id = urlParts[2]
     console.log(this.id)
     this.method = method;
     //this.idColName = this.settings.idMap[this.model] || 'id';
