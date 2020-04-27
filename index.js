@@ -14,7 +14,7 @@ require('./models/car')
 
 //mongoose.connect(keys.mongoURI, {useNewUrlParser: true, useUnifiedTopology: true})
 
-const User = mongoose.model('users')
+const Users = mongoose.model('users')
 
 const app = express();
 const port = 3000

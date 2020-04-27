@@ -80,10 +80,12 @@ module.exports = class RestMongo {
   }
 
   async post(nameOf){
+    console.log("inside POST")
     let saveObj = {
-      name: nameOf
+      name: this.req.data.name
     }
-    this.model.save(saveObj)
+    let newObj = await new this.model(saveObj)
+    newObj.save();
   }
 
   //not use?
