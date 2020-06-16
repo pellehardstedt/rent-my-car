@@ -5,4 +5,4 @@ const carSchema = new Schema({
   reg: String
 });
 
-mongoose.model('car', carSchema)
+mongoose.model('cars', carSchema)

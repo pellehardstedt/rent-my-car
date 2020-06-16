@@ -1,4 +1,5 @@
 const mongoose = require("mongoose")
+const bodyParser = require('body-parser')
 
 module.exports = class RestMongo {
 
@@ -6,11 +7,13 @@ module.exports = class RestMongo {
 
     this.settings = settings;
     this.connectToMongo();
+
     return (...args) => new RestMongo(...args);
   }
 
   static connectToMongo(){
     mongoose.connect(this.settings.mongoURI, {useNewUrlParser: true, useUnifiedTopology: true})
+    .catch(error => console.log("ERROR!!! ", error))
   }
 
   constructor(req,res,next){
@@ -47,16 +50,15 @@ module.exports = class RestMongo {
     console.log(urlParts)
 
     //save model name in a string
-    this.modelName = urlParts[1];
+    this.modelName = urlParts[0];
 
     //save model instance. somewhere else?
-    this.model = mongoose.model(urlParts[1].split(';').join(''));
+    this.model = mongoose.model(urlParts[0].split(';').join(''));
 
     // set properties to this
-    this.id = urlParts[2]
+    this.id = urlParts[1]
     console.log(this.id)
     this.method = method;
-    //this.idColName = this.settings.idMap[this.model] || 'id';
   }
 
   async get(){
@@ -65,10 +67,10 @@ module.exports = class RestMongo {
     let result
     if(this.id){
       let queryObj = {
-        name: this.id
+        name: {'$regex': this.id}
       }
      result = await this.model.find(queryObj);
-  } else{
+    } else{
      result = await this.model.find();
 
   }
@@ -79,13 +81,18 @@ module.exports = class RestMongo {
     this.res.json(result);
   }
 
-  async post(nameOf){
-    console.log("inside POST")
+  async post(){
+    console.log("THIS IS THE BODY");
+    console.log(JSON.stringify(this.req.body))
     let saveObj = {
-      name: this.req.data.name
+      name: this.req.body.username,
+      email: this.req.body.email,
+      password: this.req.body.password
     }
     let newObj = await new this.model(saveObj)
     newObj.save();
+    this.res.json(this.req.body);
+
   }
 
   //not use?

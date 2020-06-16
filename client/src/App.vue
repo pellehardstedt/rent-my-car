@@ -1,16 +1,21 @@
 <template>
   <div id="app">
-    <CrudForm/>
+    <Header></Header>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import CrudForm from './components/Form.vue'
+// import Login from './components/Login.vue'
+// import Search from './components/Search.vue'
+import Header from './components/Header.vue'
 
 export default {
   name: 'App',
   components: {
-    CrudForm
+    Header
+    // Login,
+    // Search
   }
 }
 </script>
@@ -20,7 +25,5 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
