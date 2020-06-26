@@ -45,9 +45,15 @@ module.exports = class RestMongo {
       this.next();
       return;
     }
+
     // remove baseUrl and split rest of url on slash
     let urlParts = url.split(baseUrl,2)[1].split('/')
     console.log(urlParts)
+
+    if(urlParts[0] === "auth") {
+      this.next();
+      return;
+    }
 
     //save model name in a string
     this.modelName = urlParts[0];

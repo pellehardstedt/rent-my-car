@@ -36,17 +36,17 @@ export default {
       if(this.message === "") {
         this.result = []
       } else {
-        let url = "http://localhost:8080/api/users/" + this.message
+        let url = "http://localhost:8080/api/user/" + this.message
         let gotResult = await axios.get(url)
         this.result = gotResult.data
       }
     },
     async getAllUsers() {
-      let list = await axios.get("http://localhost:8080/api/users/")
+      let list = await axios.get("http://localhost:8080/api/user/")
       this.items = list.data
     },
     async sendPost() {
-      let url = "http://localhost:8080/api/users/" + this.newUser
+      let url = "http://localhost:8080/api/user/" + this.newUser
       let ok = await axios.post(url)
       this.new = ok.statusText
     }

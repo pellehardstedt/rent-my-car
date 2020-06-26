@@ -8,12 +8,12 @@
       </p>
       <p>
         <label for="email">Email:</label>
-        <input id="username" v-model="Email" placeholder="email">
+        <input id="email" v-model="email" placeholder="email">
       </p>
 
       <p>
         <label for="password">Password:</label>
-        <textarea id="password" v-model="password"></textarea>
+        <input id="password" v-model="password">
       </p>
 
 
@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     async sendPost() {
-      let ok = await axios.post("http://localhost:8080/api/users/", {username: this.username, email: this.email ,password: this.password})
+      let ok = await axios.post("/api/auth/signup", {username: this.username, email: this.email, password: this.password})
       this.new = ok.statusText
     }
   }
